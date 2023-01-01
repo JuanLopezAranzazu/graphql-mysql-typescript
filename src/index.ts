@@ -6,13 +6,15 @@ import { createConnection } from "typeorm";
 import { schema } from "./Schemas/index";
 // entities
 import { User } from "./Entities/User";
+// config
+import { config } from "./config";
 
 const main = async () => {
   await createConnection({
     type: "mysql",
-    database: "db-graphql",
-    username: "root",
-    password: "root123",
+    database: config.dbName,
+    username: config.dbUser,
+    password: config.dbPassword,
     logging: true,
     synchronize: false,
     entities: [User],
@@ -30,8 +32,8 @@ const main = async () => {
     })
   );
 
-  app.listen(3001, () => {
-    console.log("Server running on port 3001");
+  app.listen(config.port, () => {
+    console.log(`Server running on port ${config.port}`);
   });
 };
 
