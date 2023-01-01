@@ -1,4 +1,12 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+} from "typeorm";
+// entities
+import { Reminder } from "./Reminder";
 
 @Entity()
 export class User extends BaseEntity {
@@ -13,4 +21,7 @@ export class User extends BaseEntity {
 
   @Column()
   password!: string;
+
+  @OneToMany(() => Reminder, (reminder) => reminder.user)
+  reminders!: Reminder[];
 }

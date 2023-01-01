@@ -6,6 +6,7 @@ import { createConnection } from "typeorm";
 import { schema } from "./Schemas/index";
 // entities
 import { User } from "./Entities/User";
+import { Reminder } from "./Entities/Reminder";
 // config
 import { config } from "./config";
 
@@ -17,7 +18,7 @@ const main = async () => {
     password: config.dbPassword,
     logging: true,
     synchronize: false,
-    entities: [User],
+    entities: [User, Reminder],
   });
 
   const app = express();

@@ -6,7 +6,11 @@ import { User } from "./../../Entities/User";
 export const FIND_ALL_USERS = {
   type: new GraphQLList(UserType),
   async resolve() {
-    const users = await User.find({});
+    const users = await User.find({
+      relations: {
+        reminders: true,
+      },
+    });
     return users;
   },
 };
@@ -17,6 +21,9 @@ export const FIND_BY_ID_USERS = {
   async resolve(parent: any, args: any) {
     const { id } = args;
     const user = await User.findOneBy({ id });
+    if (!user) {
+      throw new Error("User not found");
+    }
     return user;
   },
 };
